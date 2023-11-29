@@ -1,6 +1,6 @@
 #!/opt/R/4.1.3/bin/Rscript
 #Description. This script pulls data related to sequencing of nails and allows for the comparison of the the two method
-#for extracting DNA from nails. 
+#for extracting DNA from nails.  The data is subsequently deidentified and shared as "fragment_quartiles.csv" in data directory. 
 
 ## Load required packages
 # Data manipulation
