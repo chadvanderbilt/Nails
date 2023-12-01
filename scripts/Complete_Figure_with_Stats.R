@@ -44,7 +44,7 @@ library(gridExtra)
 library(png)
 
 ## Set working directory
-setwd("/home/vanderbc/nail_project/data")
+setwd("/home/User/Nails/data")
 plot_dir <- sub(getwd(), pattern = "data", replacement = "plots")
 
 ## Figure 1b - Comparing Fragment Size Between Extraction Methods
