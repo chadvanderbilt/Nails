@@ -112,7 +112,7 @@ dev.off()
 
 ## Figure 1e - Comparing DNA Fragment Size Between Extraction Methods by Quartiles
 
-quartiles <- read.csv(paste0(plot_dir,"/fragment_quartiles.csv"), header = T)
+quartiles <- read.csv("fragment_quartiles.csv", header = T)
 level_order_2 <- c("Method 1", "Method 2")
 pdf(paste0(plot_dir,"/FIG1E.pdf"), width = 9, height = 10)
 quartiles %>%
