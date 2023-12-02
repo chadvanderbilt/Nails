@@ -424,7 +424,7 @@ plot <- get(list_frames_outer[i]) %>%
           geom_bar(stat = "identity",width = 1, aes(x= case, 
                                       y = nail_vaf, 
                                       fill = "VAF in Nails"))+
-          scale_fill_manual(values = c("#b66a00", "#b3bfcb")) +
+          scale_fill_manual(values = c("#b66a00", "#9fb4c9")) +
           # coord_flip() +
           scale_alpha_continuous(guide = 'none') +
           theme_minimal()+
@@ -483,7 +483,8 @@ plot <- get(list_frames_outer[i]) %>%
                                       alpha = 0.6)) +
           geom_bar(stat = "identity",width = 1, aes(x= case, 
                                       y = nail_vaf, 
-                                      fill = "VAF in Nails"))+
+                                      fill = "VAF in Nails",
+                                      alpha = 0.9))+
           scale_fill_manual(values = c("#f3af50", "#428ed5")) +
           # coord_flip() +
           scale_alpha_continuous(guide = 'none') +
@@ -525,7 +526,7 @@ ggsave(plot = combined_plot, filename = paste0(plot_dir, "/FIG3_", list_frames_i
 
 #generate bines
 VF_bins <- all_cv3_nail_variants_13Dec2021 %>% 
-  select(OncoTree_Code, Gene, VF, Nail_AltFreq) %>% 
+  select(OncoTree_Code, Gene, VF, Nail_AltFreq, Called_nail_mutation) %>% 
   mutate(VF_bins = ifelse(VF >= 0.9, "90-100", 
                           ifelse(VF >= 0.8, "80-89", 
                                  ifelse(VF >= 0.7, "70-79", 
@@ -572,14 +573,14 @@ theme(axis.text.x = element_text(vjust= 1, hjust = 1, size = 20, face = "bold"),
 fig3c_f <- VF_bins %>% 
 mutate(VF_bins = fct_relevel(VF_bins, desired_order)) %>%
 filter(is.na(M_L)==F, is.na(VF_bins)==F) %>%
-mutate(nail_mut = ifelse(Nail_AltFreq >= 0.01, TRUE, FALSE)) %>%
+mutate(nail_mut = Called_nail_mutation ) %>%
 mutate(M_L = ifelse(M_L=="M", "1M", M_L)) %>%
 group_by(VF_bins, M_L, nail_mut) %>%
 summarise(counts = n()) %>% ungroup() %>%
 ggplot(aes(x = VF_bins, y = counts, fill = nail_mut, alpha = nail_mut)) +
 geom_bar(stat = "identity", position = "fill") +
-scale_fill_manual(values = c("#f3af50", "#428ed5")) +
-scale_alpha_manual(values = c(0.99, 0.6)) +
+scale_fill_manual(values = c("#428ed5", "#f3af50")) +
+scale_alpha_manual(values = c(0.6, 0.6)) +
 facet_wrap(~M_L, scales = "free_x", strip.position = "left", ncol = 1) +
 coord_flip() + 
 theme_minimal() +
